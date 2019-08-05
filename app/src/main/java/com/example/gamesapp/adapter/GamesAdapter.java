@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gamesapp.R;
+import com.example.gamesapp.adapter.listener.GameListListener;
 import com.example.gamesapp.model.Game;
 import com.example.gamesapp.model.GameImage;
 import com.squareup.picasso.Picasso;
@@ -20,9 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> {
 
     private List<Game> gameList = new ArrayList<>();
+    private GameListListener gameListListener;
+
+    public GamesAdapter(GameListListener gameListListener) {
+        this.gameListListener = gameListListener;
+    }
 
     public void atualizarGames(List<Game> gameList) {
         this.gameList = gameList;
+        notifyDataSetChanged();
+    }
+
+    public void adicionarGames() {
+        this.gameList.addAll(gameList);
         notifyDataSetChanged();
     }
 
@@ -37,6 +48,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Game game = gameList.get(position);
         holder.bind(game);
+        holder.itemView.setOnClickListener(view -> gameListListener.onGameClick(game));
 
     }
 

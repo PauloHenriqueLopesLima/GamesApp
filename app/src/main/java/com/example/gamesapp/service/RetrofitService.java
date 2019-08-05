@@ -1,6 +1,7 @@
 package com.example.gamesapp.service;
 
 import com.example.gamesapp.service.api.GamesApi;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,7 @@ public class RetrofitService {
             clientBuilder.connectTimeout(30, TimeUnit.SECONDS);
             clientBuilder.readTimeout(30, TimeUnit.SECONDS);
             clientBuilder.writeTimeout(30, TimeUnit.SECONDS);
-
+            clientBuilder.addNetworkInterceptor(new StethoInterceptor());
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

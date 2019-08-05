@@ -30,9 +30,9 @@ public class GameRepository {
         });
     }
 
-    public Observable<List<Game>> getGameListApi () {
+    public Observable<List<Game>> getGameListApi (int LIMIT,int offset) {
         return retrofitService.getGamesApi()
-                .getGames(API_KEY, FORMAT)
+                .getGames(API_KEY, LIMIT,FORMAT,offset)
                 .map(gameResponse -> gameResponse.getResults());
 
     }

@@ -29,13 +29,16 @@ public class GameViewModel extends AndroidViewModel {
         return gameLiveData;
     }
 
-    public void atualizarGames () {
+    public void atualizarGames (int limit,int offset) {
 
         disposable.add(
-                gameRepository.getGameListApi()
+                gameRepository.getGameListApi(limit,offset)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(gameList -> gameLiveData.setValue(gameList))
+                .subscribe(gameList -> gameLiveData.setValue(gameList),
+                        throwable -> throwable.printStackTrace())
+
+
         );
 
     }

@@ -9,7 +9,9 @@ public interface GamesApi {
 
     @GET("games")
     Observable<GameResponse> getGames(@Query("api_key") String apiKey,
-                                      @Query("format") String format);
+                                      @Query("limit") int limit,
+                                      @Query("format") String format,
+                                      @Query("offset") int offset);
 
     @GET("original")
     Observable<GameResponse> getImage(@Query("api_key") String apiKey,
